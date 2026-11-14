@@ -22,12 +22,4 @@ function dibujarEstrellas() {
 dibujarEstrellas();
 window.addEventListener("resize", dibujarEstrellas);
 
-// --- Botones ---
-// TODO: cuando existan las siguientes pantallas, cambiar los alert por la navegación real.
-document.getElementById("btn-coordenadas").addEventListener("click", () => {
-  alert("Próximamente: pantalla para escribir coordenadas");
-});
-
-document.getElementById("btn-lugar").addEventListener("click", () => {
-  alert("Próximamente: pantalla para elegir un lugar en la Luna");
-});
+// Los botones ya no necesitan JavaScript: son enlaces en index.html.
