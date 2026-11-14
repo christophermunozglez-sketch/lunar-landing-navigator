@@ -13,7 +13,7 @@
     <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
     <canvas id="estrellas" aria-hidden="true"></canvas>
 
-    <!-- Aquí irá el modelo 3D de la Luna. Por ahora es una Luna hecha con CSS. -->
+    <!-- Modelo 3D de la Luna (lo pone aquí js/luna3d.js) -->
     <div id="luna-3d" aria-hidden="true"></div>
 
     <main class="tarjeta">
@@ -32,5 +32,16 @@
     </main>
 
     <script src="js/inicio.js"></script>
+
+    <!-- Luna 3D: estas dos partes se copian igual en cualquier página que quiera la Luna -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/luna3d.js"></script>
   </body>
 </html>

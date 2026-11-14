@@ -35,7 +35,9 @@ body {
   z-index: 0;
 }
 
-/* Luna provisional: se reemplazará por el modelo 3D */
+/* Lugar de la Luna. Aquí se cambia su tamaño y posición.
+   Mientras carga el modelo 3D (o si una página no usa js/luna3d.js)
+   se ve esta Luna hecha con CSS como respaldo. */
 #luna-3d {
   position: fixed;
   top: 50%;
@@ -60,6 +62,21 @@ body {
   to {
     transform: translate(-50%, -50%) rotate(360deg);
   }
+}
+
+/* Cuando js/luna3d.js termina de cargar el modelo 3D, le pone la clase
+   "con-modelo" al contenedor: quitamos la Luna de CSS y mostramos la 3D. */
+#luna-3d.con-modelo {
+  background: none;
+  box-shadow: none;
+  animation: none;
+  opacity: 0.85;
+}
+
+#luna-3d canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* --- Tarjeta central --- */
@@ -180,27 +197,31 @@ body {
   overflow-y: auto;
 }
 
+/* Una sola columna: arriba el centro de lanzamiento, abajo fecha y hora.
+   (Sin esto, toma las 2 columnas de .datos-entrada de la página de coordenadas) */
 .tarjeta-mision .datos-entrada {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 16px;
-  margin-top: 28px;
-  text-align: left;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .tarjeta-mision .datos-entrada > label,
 .campo-mision label {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .selector-mision {
   width: 100%;
-  min-height: 56px;
-  padding: 14px 16px;
+  min-height: 44px;
+  padding: 10px 16px;
   border: none;
   border-radius: 6px;
   background: var(--boton);
   color: var(--boton-texto);
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -213,7 +234,8 @@ body {
 .campos-fecha-hora {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 16px 64px;
+  margin-top: 8px;
 }
 
 .campo-mision {
@@ -221,15 +243,19 @@ body {
   gap: 8px;
 }
 
+/* Fecha y hora: azules como en el diseño de Canva */
 .campo-mision input {
   width: 100%;
-  min-height: 48px;
-  padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  min-height: 40px;
+  padding: 8px 12px;
+  border: none;
   border-radius: 6px;
-  background: #fff;
-  color: #08090c;
+  background: var(--boton);
+  color: var(--boton-texto);
   font: inherit;
+  font-weight: 800;
+  text-align: center;
+  color-scheme: dark; /* hace visible el iconito del calendario y del reloj */
 }
 
 @media (max-width: 600px) {
