@@ -92,19 +92,21 @@ body {
 
 .botones {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px 64px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
   margin-top: 36px;
 }
 
 .boton {
+  display: block;
   padding: 20px 16px;
+  text-decoration: none; /* quita la línea de abajo que tienen los enlaces */
   border: none;
   border-radius: 6px;
   background: var(--boton);
   color: var(--boton-texto);
   font-family: inherit;
-  font-size: clamp(1rem, 2.4vw, 1.4rem);
+  font-size: clamp(1rem, 2vw, 1.15rem);
   cursor: pointer;
   transition:
     background 0.2s,
