@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Lunar Landing Site Navigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+  </head>
+  <body>
+    <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
+    <canvas id="estrellas" aria-hidden="true"></canvas>
+
+    <!-- Aquí irá el modelo 3D de la Luna. Por ahora es una Luna hecha con CSS. -->
+    <div id="luna-3d" aria-hidden="true"></div>
+
+    <main class="tarjeta">
+      <h1>Welcome to <strong>LLSN Insights</strong>!</h1>
+      <p class="subtitulo">Please answer the following for getting started!</p>
+      <form class="datos-entrada">
+        <label class="campo-entrada">
+          <span>Latitude</span>
+          <input type="text" name="latitud" placeholder="e.x. 25.6" />
+        </label>
+        <label class="campo-entrada">
+          <span>Longitude</span>
+          <input type="text" name="longitud" placeholder="e.x. 45.3" />
+        </label>
+      </form>
+    </main>
+
+    <script src="js/inicio.js"></script>
+  </body>
+</html>

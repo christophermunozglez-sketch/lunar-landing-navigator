@@ -3,6 +3,7 @@
 :root {
   --fondo: #08090c;
   --tarjeta: #001a45;
+  --entrada: #a9d8ff;
   --boton: #5468ff;
   --boton-hover: #6b7cff;
   --boton-texto: #1a0f8f;
@@ -88,6 +89,58 @@ body {
 
 .subtitulo {
   font-weight: 600;
+}
+
+.datos-entrada {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+  text-align: left;
+}
+
+.campo-entrada {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 6px;
+  background: var(--entrada);
+  color: #082345;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.campo-entrada input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(8, 35, 69, 0.25);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #082345;
+  font: inherit;
+  font-weight: 400;
+}
+
+.campo-entrada input::placeholder {
+  color: #506b88;
+}
+
+.campo-entrada input:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 560px) {
+  .tarjeta {
+    padding: 28px 20px 32px;
+  }
+
+  .datos-entrada {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 22px;
+  }
 }
 
 .botones {
