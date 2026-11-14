@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "ms-vsliveshare.vsliveshare",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ritwickdey.liveserver",
+    "usernamehw.errorlens",
+    "pkief.material-icon-theme",
+    "formulahendry.auto-rename-tag"
+  ]
+}
