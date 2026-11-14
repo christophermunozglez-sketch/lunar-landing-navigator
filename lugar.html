@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Lunar Landing Site Navigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+  </head>
+  <body>
+    <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
+    <canvas id="estrellas" aria-hidden="true"></canvas>
+
+    <!-- Modelo 3D de la Luna (lo pone aquí js/luna3d.js) -->
+    <div id="luna-3d" aria-hidden="true"></div>
+
+    <!-- Aquí va el contenido de esta página -->
+
+    <script src="js/inicio.js"></script>
+
+    <!-- Luna 3D: estas dos partes se copian igual en cualquier página que quiera la Luna -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/luna3d.js"></script>
+  </body>
+</html>

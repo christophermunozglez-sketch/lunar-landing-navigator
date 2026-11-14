@@ -13,14 +13,14 @@
     <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
     <canvas id="estrellas" aria-hidden="true"></canvas>
 
-    <!-- Aquí irá el modelo 3D de la Luna. Por ahora es una Luna hecha con CSS. -->
+    <!-- Modelo 3D de la Luna (lo pone aquí js/luna3d.js) -->
     <div id="luna-3d" aria-hidden="true"></div>
 
     <main class="tarjeta tarjeta-mision">
       <h1>Welcome to <strong>LLSN Insights</strong>!</h1>
       <p class="subtitulo">Please answer the following for getting started!</p>
       <form class="datos-entrada">
-        <label for="centro-lanzamiento">Select the launching center</label>
+        <label for="centro-lanzamiento">Select the <strong>launching center</strong></label>
         <select id="centro-lanzamiento" class="selector-mision" name="centro-lanzamiento" required>
           <option value="" selected disabled>Choose a launching center</option>
           <option value="opcion-1">Kennedy Space Center</option>
@@ -34,11 +34,11 @@
 
         <div class="campos-fecha-hora">
           <div class="campo-mision">
-            <label for="fecha-mision">Mission date</label>
+            <label for="fecha-mision">Enter the <strong>date</strong></label>
             <input id="fecha-mision" name="fecha-mision" type="date" required />
           </div>
           <div class="campo-mision">
-            <label for="hora-mision">Mission time</label>
+            <label for="hora-mision">Enter the <strong>hour</strong></label>
             <input id="hora-mision" name="hora-mision" type="time" required />
           </div>
         </div>
@@ -46,5 +46,16 @@
     </main>
 
     <script src="js/inicio.js"></script>
+
+    <!-- Luna 3D: estas dos partes se copian igual en cualquier página que quiera la Luna -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/luna3d.js"></script>
   </body>
 </html>

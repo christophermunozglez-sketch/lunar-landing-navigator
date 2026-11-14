@@ -55,7 +55,8 @@ export function mostrarLuna(contenedor) {
 
       // Centramos la Luna y alejamos la cámara lo justo para que se vea completa
       const caja = new THREE.Box3().setFromObject(luna);
-      const radio = caja.getBoundingSphere(new THREE.Sphere()).radius;
+      const tamano = caja.getSize(new THREE.Vector3());
+      const radio = Math.max(tamano.x, tamano.y, tamano.z) / 2; // radio real de la Luna
       luna.position.sub(caja.getCenter(new THREE.Vector3()));
       camara.position.z = radio / Math.sin(THREE.MathUtils.degToRad(camara.fov / 2));
 
