@@ -122,3 +122,76 @@ body {
   outline: 3px solid #fff;
   outline-offset: 3px;
 }
+
+.pagina-mision {
+  overflow-y: auto;
+}
+
+.tarjeta-mision .datos-entrada {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  text-align: left;
+}
+
+.tarjeta-mision .datos-entrada > label,
+.campo-mision label {
+  font-weight: 600;
+}
+
+.selector-mision {
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--boton);
+  color: var(--boton-texto);
+  font: inherit;
+  cursor: pointer;
+}
+
+.selector-mision:focus-visible,
+.campo-mision input:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.campos-fecha-hora {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.campo-mision {
+  display: grid;
+  gap: 8px;
+}
+
+.campo-mision input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  background: #fff;
+  color: #08090c;
+  font: inherit;
+}
+
+@media (max-width: 600px) {
+  .campos-fecha-hora {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 520px) {
+  .pagina-mision {
+    display: block;
+    overflow-y: auto;
+  }
+
+  .tarjeta-mision {
+    margin: 0 auto;
+  }
+}
