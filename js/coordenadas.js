@@ -89,13 +89,15 @@ export function puntoALatLon({ x, y, z }) {
 // ── 4. Distancia entre dos lugares de la Luna (en km) ──────────────────────
 // Usa la fórmula de "haversine": la distancia caminando por la superficie,
 // no en línea recta atravesando la Luna.
-export function distanciaKm(lugarA, lugarB) {
+// El 3er dato es el radio: por defecto la Luna. Para la Tierra, js/tierra.js
+// le pasa RADIO_TIERRA_KM.
+export function distanciaKm(lugarA, lugarB, radioKm = RADIO_LUNA_KM) {
   const lat1 = gradosARadianes(lugarA.latitud);
   const lat2 = gradosARadianes(lugarB.latitud);
   const dLat = lat2 - lat1;
   const dLon = gradosARadianes(lugarB.longitud - lugarA.longitud);
   const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-  return 2 * RADIO_LUNA_KM * Math.asin(Math.sqrt(a));
+  return 2 * radioKm * Math.asin(Math.sqrt(a));
 }
 
 // Convierte km reales a unidades del modelo (y al revés)

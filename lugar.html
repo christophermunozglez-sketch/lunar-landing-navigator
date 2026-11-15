@@ -25,12 +25,41 @@
     <!-- Aquí js/lugar.js pone un pin por cada misión pasada -->
     <div id="marcadores" aria-label="Previous landing missions"></div>
 
-    <!-- Return: regresa a la página principal.
-         Enter: se activa cuando eliges una misión (lógica en js/enter.js) -->
-    <div class="acciones acciones-lugar">
-      <a class="boton boton-return" href="index.html">Return</a>
-      <button type="button" class="boton boton-enter" id="enter-lugar" disabled>Enter</button>
-    </div>
+    <!-- Menú de salida desde la Tierra + botones Return/Enter.
+         Todo va dentro de un <form> para que el navegador revise que esté lleno.
+         Enter se activa cuando eliges una misión (lógica en js/enter.js) -->
+    <form class="datos-entrada formulario-lugar" id="formulario-lugar" data-requiere-destino>
+      <section class="tarjeta panel-salida" aria-label="Departure from Earth">
+        <label for="centro-lanzamiento">Select the <strong>launching center</strong></label>
+        <select id="centro-lanzamiento" class="selector-mision" name="centro-lanzamiento" required>
+          <option value="" selected disabled>Choose a launching center</option>
+          <option value="opcion-1">Kennedy Space Center</option>
+          <option value="opcion-2">Cape Canaveral Space Force Station</option>
+          <option value="opcion-3">Vandenberg Space Force Base</option>
+          <option value="opcion-4">Wallops Flight Facility</option>
+          <option value="opcion-5">Reagan Test Site Kwajalein Atoll</option>
+          <option value="opcion-6">Rocket Labs Launch Complex</option>
+          <option value="opcion-7">SpaceXs Starbase</option>
+          <option value="opcion-8">Kodiak Island</option>
+        </select>
+
+        <div class="campos-fecha-hora">
+          <div class="campo-mision">
+            <label for="fecha-mision">Enter the <strong>date</strong></label>
+            <input id="fecha-mision" name="fecha-mision" type="date" required />
+          </div>
+          <div class="campo-mision">
+            <label for="hora-mision">Enter the <strong>hour</strong></label>
+            <input id="hora-mision" name="hora-mision" type="time" required />
+          </div>
+        </div>
+      </section>
+
+      <div class="acciones acciones-lugar">
+        <a class="boton boton-return" href="index.html">Return</a>
+        <button type="submit" class="boton boton-enter" id="enter-lugar" disabled>Enter</button>
+      </div>
+    </form>
 
     <script src="js/inicio.js"></script>
 
