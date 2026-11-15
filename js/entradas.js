@@ -33,8 +33,8 @@ if (EMBEBIDA) document.documentElement.classList.add("embebida");
 
 // Mientras se captura una entrada nueva para comparar:
 if (entradasPrevias().length) {
-  // 1. Los enlaces a otras páginas (los 3 botones del inicio, "Return") conservan la lista
-  for (const enlace of document.querySelectorAll("a[href$='.html']")) {
+  // 1. Los enlaces a otras páginas conservan la lista, excepto "Start over".
+  for (const enlace of document.querySelectorAll("a[href$='.html']:not([data-limpiar-comparaciones])")) {
     enlace.href = direccionCon(enlace.getAttribute("href"), entradasPrevias());
   }
   // 2. Los textos marcados con data-al-comparar cambian ("Please enter new location")
