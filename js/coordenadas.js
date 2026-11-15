@@ -110,23 +110,32 @@ export function formatearCoordenadas(latitud, longitud, decimales = 2) {
   return `${Math.abs(latitud).toFixed(decimales)}° ${ns}, ${Math.abs(longitud).toFixed(decimales)}° ${ew}`;
 }
 
-// ── 6. Lugares conocidos (para "Select place (previous)") ──────────────────
-// Sitios de aterrizaje anteriores y lugares importantes del polo sur.
-// IMPORTANTE: antes de la entrega, revisar estos números con fuentes oficiales
-// (NASA, LROC, ISRO, CNSA). Sur y oeste van en negativo.
-export const LUGARES = [
-  { id: "polo-sur", nombre: "Polo sur", latitud: -90, longitud: 0, tipo: "referencia" },
-  { id: "shackleton", nombre: "Cráter Shackleton", latitud: -89.67, longitud: 129.78, tipo: "polo sur" },
-  { id: "im-1", nombre: "IM-1 Odysseus (CLPS, 2024)", latitud: -80.13, longitud: 1.44, tipo: "aterrizaje" },
-  { id: "chandrayaan-3", nombre: "Chandrayaan-3 (2023)", latitud: -69.37, longitud: 32.32, tipo: "aterrizaje" },
-  { id: "change-4", nombre: "Chang'e 4 (2019)", latitud: -45.44, longitud: 177.6, tipo: "aterrizaje" },
-  { id: "apollo-11", nombre: "Apollo 11 (1969)", latitud: 0.674, longitud: 23.473, tipo: "aterrizaje" },
-  { id: "apollo-12", nombre: "Apollo 12 (1969)", latitud: -3.012, longitud: -23.422, tipo: "aterrizaje" },
-  { id: "apollo-14", nombre: "Apollo 14 (1971)", latitud: -3.645, longitud: -17.471, tipo: "aterrizaje" },
-  { id: "apollo-15", nombre: "Apollo 15 (1971)", latitud: 26.132, longitud: 3.634, tipo: "aterrizaje" },
-  { id: "apollo-16", nombre: "Apollo 16 (1972)", latitud: -8.973, longitud: 15.5, tipo: "aterrizaje" },
-  { id: "apollo-17", nombre: "Apollo 17 (1972)", latitud: 20.191, longitud: 30.772, tipo: "aterrizaje" },
+// ── 6. Lugares conocidos ───────────────────────────────────────────────────
+// Sur y oeste van en negativo.
+
+// Misiones pasadas (las que se eligen en lugar.html, "Select place (previous)").
+// Coordenadas investigadas por el equipo.
+export const MISIONES_PASADAS = [
+  { id: "apollo-11", nombre: "Apollo 11", anio: 1969, latitud: 0.67416, longitud: 23.47314 },
+  { id: "apollo-12", nombre: "Apollo 12", anio: 1969, latitud: -3.0128, longitud: -23.4219 },
+  { id: "apollo-14", nombre: "Apollo 14", anio: 1971, latitud: -3.64689, longitud: -17.47194 },
+  { id: "apollo-15", nombre: "Apollo 15", anio: 1971, latitud: 26.13239, longitud: 3.6333 },
+  { id: "apollo-16", nombre: "Apollo 16", anio: 1972, latitud: -8.9734, longitud: 15.5011 },
+  { id: "apollo-17", nombre: "Apollo 17", anio: 1972, latitud: 20.1911, longitud: 30.7655 },
 ];
+
+// Otros lugares útiles (polo sur). IMPORTANTE: revisar estos números con
+// fuentes oficiales (NASA, LROC, ISRO, CNSA) antes de la entrega.
+export const OTROS_LUGARES = [
+  { id: "polo-sur", nombre: "Polo sur", latitud: -90, longitud: 0 },
+  { id: "shackleton", nombre: "Cráter Shackleton", latitud: -89.67, longitud: 129.78 },
+  { id: "im-1", nombre: "IM-1 Odysseus (CLPS)", anio: 2024, latitud: -80.13, longitud: 1.44 },
+  { id: "chandrayaan-3", nombre: "Chandrayaan-3", anio: 2023, latitud: -69.37, longitud: 32.32 },
+  { id: "change-4", nombre: "Chang'e 4", anio: 2019, latitud: -45.44, longitud: 177.6 },
+];
+
+// Todos juntos, para buscarLugar()
+export const LUGARES = [...MISIONES_PASADAS, ...OTROS_LUGARES];
 
 // Buscar un lugar por su id: buscarLugar("shackleton")
 export function buscarLugar(id) {

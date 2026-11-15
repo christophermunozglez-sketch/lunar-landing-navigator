@@ -67,6 +67,9 @@ export function mostrarLuna(contenedor) {
       luna.position.sub(caja.getCenter(new THREE.Vector3()));
       camara.position.z = radio / Math.sin(THREE.MathUtils.degToRad(camara.fov / 2));
 
+      // Empezamos con la cara que vemos desde la Tierra (longitud 0) de frente
+      luna.rotation.y = -Math.PI / 2;
+
       escena.add(luna);
       // Esta clase apaga la Luna de CSS de respaldo y hace aparecer la 3D
       contenedor.classList.add("con-modelo");
@@ -87,10 +90,12 @@ export function mostrarLuna(contenedor) {
   new ResizeObserver(ajustarTamano).observe(contenedor);
 
   // --- 4. Animación: girar la Luna ---
+  // Si el HTML dice <div id="luna-3d" data-girar="no">, la Luna se queda quieta
+  const girar = contenedor.dataset.girar !== "no";
   const reloj = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     const segundos = reloj.getDelta();
-    if (luna) luna.rotation.y += segundos * (VELOCIDAD_GIRO / 45) * Math.PI * 2;
+    if (luna && girar) luna.rotation.y += segundos * (VELOCIDAD_GIRO / 45) * Math.PI * 2;
     renderer.render(escena, camara);
   });
 }
