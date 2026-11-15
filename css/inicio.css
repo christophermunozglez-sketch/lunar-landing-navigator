@@ -427,3 +427,41 @@ body {
 .campo-mision input::placeholder {
   color: rgba(26, 15, 143, 0.55);
 }
+
+/* --- Menú de salida en lugar.html (centro, fecha y hora) --- */
+/* El <form> solo agrupa; sus partes se acomodan fijas en la pantalla */
+.formulario-lugar {
+  margin: 0;
+}
+
+/* Panel de arriba a la derecha, al lado de la Luna */
+.panel-salida {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  display: grid;
+  gap: 12px;
+  width: min(360px, calc(100% - 48px));
+  padding: 20px;
+  font-weight: 400;
+}
+
+.panel-salida .campos-fecha-hora {
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* En pantallas angostas el panel baja debajo del aviso y ocupa el ancho */
+@media (max-width: 760px) {
+  .panel-salida {
+    top: 96px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+
+  .panel-salida .campos-fecha-hora {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

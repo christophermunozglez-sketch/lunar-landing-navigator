@@ -1,25 +1,57 @@
 // enter.js — El botón "Enter" de las 3 páginas (coordenadas, misión y lugar)
 //
-// Por ahora es MUY básico:
-//   1. Revisa que el usuario haya llenado todo.
-//   2. Junta los datos en un objeto.
-//   3. Llama a continuar(datos), que todavía no hace nada (TODO).
-// Lo que pasa después depende de lo que se elija, y lo definimos más adelante.
+// Las 3 opciones terminan dando LOS MISMOS datos, siempre con esta forma:
+//
+//   {
+//     origen:  { id: "opcion-1", nombre: "Kennedy Space Center" }, // dónde sales en la Tierra
+//     fecha:   "2026-11-14",                                        // día de salida (AAAA-MM-DD)
+//     hora:    "23:59",                                             // hora de salida (24 h)
+//     destino: { nombre: "Apollo 11", latitud: 0.67416, longitud: 23.47314 }, // a dónde vas en la Luna
+//   }
+//
+// - coordenadas.html: el destino sale de la latitud/longitud que escribes.
+// - lugar.html:       el destino sale del pin (misión pasada) que eliges.
+// - mision.html:      todavía no tiene destino (destino: null), lo definimos después.
+//
+// Por ahora Enter solo junta los datos y llama a continuar(datos) (TODO).
 
 import { leerNumero, validarCoordenadas } from "./coordenadas.js";
 
-// ── Páginas con formulario (coordenadas.html y mision.html) ────────────────
 const formulario = document.querySelector("form.datos-entrada");
 
 if (formulario) {
+  // ── lugar.html: el destino es el pin elegido ──────────────────────────────
+  // Enter empieza apagado y se prende cuando eliges una misión.
+  let misionElegida = null;
+  const botonEnter = formulario.querySelector(".boton-enter");
+
+  if ("requiereDestino" in formulario.dataset) {
+    document.addEventListener("mision-seleccionada", (evento) => {
+      misionElegida = evento.detail;
+      botonEnter.disabled = false;
+    });
+  }
+
   formulario.addEventListener("submit", (evento) => {
     evento.preventDefault(); // que no recargue la página
+    // (El navegador ya revisó que los campos "required" estén llenos)
 
-    // Si la página tiene latitud y longitud, revisamos que tengan sentido
-    const campoLat = formulario.elements.latitud;
-    const campoLon = formulario.elements.longitud;
-    const datos = Object.fromEntries(new FormData(formulario)); // { "centro-lanzamiento": ..., ... }
+    const campos = formulario.elements;
+    const centro = campos["centro-lanzamiento"];
 
+    const datos = {
+      origen: {
+        id: centro.value,
+        nombre: centro.selectedOptions[0].textContent.trim(),
+      },
+      fecha: campos["fecha-mision"].value,
+      hora: campos["hora-mision"].value,
+      destino: null,
+    };
+
+    // ── coordenadas.html: el destino es la latitud/longitud escrita ─────────
+    const campoLat = campos.latitud;
+    const campoLon = campos.longitud;
     if (campoLat && campoLon) {
       const latitud = leerNumero(campoLat.value);
       const longitud = leerNumero(campoLon.value);
@@ -32,8 +64,13 @@ if (formulario) {
         campoMalo.reportValidity();
         return;
       }
-      datos.latitud = latitud;
-      datos.longitud = longitud;
+      datos.destino = { nombre: "Custom coordinates", latitud, longitud };
+    }
+
+    // ── lugar.html ────────────────────────────────────────────────────────
+    if (misionElegida) {
+      const { nombre, latitud, longitud } = misionElegida;
+      datos.destino = { nombre, latitud, longitud };
     }
 
     continuar(datos);
@@ -43,25 +80,8 @@ if (formulario) {
   formulario.addEventListener("input", (evento) => evento.target.setCustomValidity?.(""));
 }
 
-// ── Página de lugar (lugar.html) ───────────────────────────────────────────
-// El botón empieza apagado y se prende cuando eliges una misión (un pin).
-const botonLugar = document.getElementById("enter-lugar");
-
-if (botonLugar) {
-  let misionElegida = null;
-
-  document.addEventListener("mision-seleccionada", (evento) => {
-    misionElegida = evento.detail;
-    botonLugar.disabled = false;
-  });
-
-  botonLugar.addEventListener("click", () => {
-    if (misionElegida) continuar({ mision: misionElegida });
-  });
-}
-
 // ── Qué pasa después ───────────────────────────────────────────────────────
 function continuar(datos) {
   console.log("Enter con estos datos:", datos);
-  // TODO: aquí va lo que sigue (lo definimos después).
+  // TODO: aquí van los cálculos (los definimos después).
 }
