@@ -42,7 +42,6 @@ export const CENTROS_LANZAMIENTO = [
   { id: "opcion-5", nombre: "Reagan Test Site Kwajalein Atoll", latitud: 8.7183, longitud: 167.7297, lugar: "Marshall Islands, Pacific Ocean" },
   { id: "opcion-6", nombre: "Rocket Lab Launch Complex 1", latitud: -39.2608, longitud: 177.8653, lugar: "Māhia Peninsula, New Zealand" },
   { id: "opcion-7", nombre: "SpaceX Starbase", latitud: 25.9972, longitud: -97.1561, lugar: "Boca Chica, Texas, USA" },
-  // Todavía NO está en los menús (solo guardado para después)
   { id: "opcion-8", nombre: "Kodiak Island (Pacific Spaceport Complex)", latitud: 57.4795, longitud: -153.3745, lugar: "Alaska, USA" },
 ];
 
