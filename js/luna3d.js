@@ -24,10 +24,17 @@
 
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { latLonAPunto, puntoALatLon } from "./coordenadas.js";
 
 // Ajustes fáciles de cambiar
 const RUTA_MODELO = "modelos/luna.glb";
 const VELOCIDAD_GIRO = 0.1; // vueltas por minuto (más grande = gira más rápido)
+
+// Esta "promesa" se cumple cuando la Luna termina de cargar.
+// Otras partes del código la usan así:
+//     const { luna, escena, camara } = await lunaLista;
+let avisarLunaLista;
+export const lunaLista = new Promise((resolver) => (avisarLunaLista = resolver));
 
 export function mostrarLuna(contenedor) {
   // --- 1. Escena, cámara y renderer ---
@@ -63,6 +70,7 @@ export function mostrarLuna(contenedor) {
       escena.add(luna);
       // Esta clase apaga la Luna de CSS de respaldo y hace aparecer la 3D
       contenedor.classList.add("con-modelo");
+      avisarLunaLista({ luna, escena, camara, renderer });
     },
     undefined,
     (error) => console.error("No se pudo cargar la Luna 3D:", error),
@@ -82,9 +90,39 @@ export function mostrarLuna(contenedor) {
   const reloj = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     const segundos = reloj.getDelta();
-    if (luna) luna.rotation.y += segundos * (VELOCIDAD_GIRO / 60) * Math.PI * 2;
+    if (luna) luna.rotation.y += segundos * (VELOCIDAD_GIRO / 45) * Math.PI * 2;
     renderer.render(escena, camara);
   });
+}
+
+// ─── COORDENADAS SOBRE EL MODELO 3D ────────────────────────────────────────
+// La matemática está en js/coordenadas.js. Aquí solo está lo que necesita Three.js.
+//
+// Importante: la Luna gira. Por eso estos puntos están en el sistema "propio"
+// de la Luna (local). Si le agregas algo como hijo (luna.add(marcador)),
+// se mueve junto con ella y siempre queda en la misma coordenada.
+
+// Punto EXACTO sobre la superficie (tomando en cuenta los relieves).
+// Lanza un "rayo" desde afuera de la Luna hacia el centro y ve dónde choca.
+// Devuelve un THREE.Vector3 en coordenadas locales de la Luna.
+export function puntoEnSuperficie(luna, latitud, longitud) {
+  const { x, y, z } = latLonAPunto(latitud, longitud);
+  const direccion = new THREE.Vector3(x, y, z);
+
+  luna.updateMatrixWorld(true);
+  const afuera = luna.localToWorld(direccion.clone().multiplyScalar(2));
+  const centro = luna.localToWorld(new THREE.Vector3(0, 0, 0));
+  const rayo = new THREE.Raycaster(afuera, centro.sub(afuera).normalize());
+
+  const choque = rayo.intersectObject(luna, true)[0];
+  // Si por algo no choca, usamos la esfera lisa (radio 1)
+  return choque ? luna.worldToLocal(choque.point.clone()) : direccion;
+}
+
+// Lo contrario: de un punto 3D (local de la Luna) a latitud/longitud.
+// Útil para cuando el usuario haga clic sobre la Luna.
+export function latLonDePunto(puntoLocal) {
+  return puntoALatLon(puntoLocal);
 }
 
 // Si la página tiene <div id="luna-3d">, ponemos la Luna ahí automáticamente
