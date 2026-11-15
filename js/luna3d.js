@@ -23,7 +23,7 @@
 // 4. En cada cuadro (unas 60 veces por segundo) giramos la Luna un poquito.
 
 import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { cargarModelo } from "./escena.js";
 import { latLonAPunto, puntoALatLon } from "./coordenadas.js";
 
 // Ajustes fáciles de cambiar
@@ -54,18 +54,13 @@ export function mostrarLuna(contenedor) {
   escena.add(new THREE.AmbientLight(0xffffff, 0.25));
 
   // --- 3. Cargar el modelo ---
+  // cargarModelo (js/escena.js) la entrega centrada y con radio 1
   let luna = null;
-  new GLTFLoader().load(
-    RUTA_MODELO,
-    (gltf) => {
-      luna = gltf.scene;
-
-      // Centramos la Luna y alejamos la cámara lo justo para que se vea completa
-      const caja = new THREE.Box3().setFromObject(luna);
-      const tamano = caja.getSize(new THREE.Vector3());
-      const radio = Math.max(tamano.x, tamano.y, tamano.z) / 2; // radio real de la Luna
-      luna.position.sub(caja.getCenter(new THREE.Vector3()));
-      camara.position.z = radio / Math.sin(THREE.MathUtils.degToRad(camara.fov / 2));
+  cargarModelo(RUTA_MODELO)
+    .then((modelo) => {
+      luna = modelo;
+      // Alejamos la cámara lo justo para que se vea completa
+      camara.position.z = 1 / Math.sin(THREE.MathUtils.degToRad(camara.fov / 2));
 
       // Empezamos con la cara que vemos desde la Tierra (longitud 0) de frente
       luna.rotation.y = -Math.PI / 2;
@@ -74,10 +69,8 @@ export function mostrarLuna(contenedor) {
       // Esta clase apaga la Luna de CSS de respaldo y hace aparecer la 3D
       contenedor.classList.add("con-modelo");
       avisarLunaLista({ luna, escena, camara, renderer });
-    },
-    undefined,
-    (error) => console.error("No se pudo cargar la Luna 3D:", error),
-  );
+    })
+    .catch((error) => console.error("No se pudo cargar la Luna 3D:", error));
 
   // --- Ajustar el tamaño cuando cambia el contenedor ---
   function ajustarTamano() {

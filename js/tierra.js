@@ -20,8 +20,10 @@
 
 import { distanciaKm, latLonAPunto, puntoALatLon } from "./coordenadas.js";
 
-// Radio promedio de la Tierra en kilómetros
+// Radio promedio de la Tierra en kilómetros (para distancias sobre la superficie)
 export const RADIO_TIERRA_KM = 6371.0;
+// Radio en el ecuador (para órbitas y para el tamaño con que se ve desde la Luna)
+export const RADIO_ECUATORIAL_TIERRA_KM = 6378.137;
 
 // Las mismas fórmulas de la Luna, con nombre de Tierra para que se lea claro
 export const tierraLatLonAPunto = latLonAPunto;
@@ -35,14 +37,56 @@ export const tierraModeloAKm = (unidades) => unidades * RADIO_TIERRA_KM;
 // <select name="centro-lanzamiento"> en coordenadas, misión y lugar.
 // Coordenadas investigadas por el equipo.
 export const CENTROS_LANZAMIENTO = [
-  { id: "opcion-1", nombre: "Kennedy Space Center", latitud: 28.5729, longitud: -80.649, lugar: "Merritt Island, Florida, USA" },
-  { id: "opcion-2", nombre: "Cape Canaveral Space Force Station", latitud: 28.4684, longitud: -80.5593, lugar: "Brevard County, Florida, USA" },
-  { id: "opcion-3", nombre: "Vandenberg Space Force Base", latitud: 34.742, longitud: -120.5724, lugar: "Santa Barbara County, California, USA" },
-  { id: "opcion-4", nombre: "Wallops Flight Facility", latitud: 37.9398, longitud: -75.4647, lugar: "Wallops Island, Virginia, USA" },
-  { id: "opcion-5", nombre: "Reagan Test Site Kwajalein Atoll", latitud: 8.7183, longitud: 167.7297, lugar: "Marshall Islands, Pacific Ocean" },
-  { id: "opcion-6", nombre: "Rocket Lab Launch Complex 1", latitud: -39.2608, longitud: 177.8653, lugar: "Māhia Peninsula, New Zealand" },
+  {
+    id: "opcion-1",
+    nombre: "Kennedy Space Center",
+    latitud: 28.5729,
+    longitud: -80.649,
+    lugar: "Merritt Island, Florida, USA",
+  },
+  {
+    id: "opcion-2",
+    nombre: "Cape Canaveral Space Force Station",
+    latitud: 28.4684,
+    longitud: -80.5593,
+    lugar: "Brevard County, Florida, USA",
+  },
+  {
+    id: "opcion-3",
+    nombre: "Vandenberg Space Force Base",
+    latitud: 34.742,
+    longitud: -120.5724,
+    lugar: "Santa Barbara County, California, USA",
+  },
+  {
+    id: "opcion-4",
+    nombre: "Wallops Flight Facility",
+    latitud: 37.9398,
+    longitud: -75.4647,
+    lugar: "Wallops Island, Virginia, USA",
+  },
+  {
+    id: "opcion-5",
+    nombre: "Reagan Test Site Kwajalein Atoll",
+    latitud: 8.7183,
+    longitud: 167.7297,
+    lugar: "Marshall Islands, Pacific Ocean",
+  },
+  {
+    id: "opcion-6",
+    nombre: "Rocket Lab Launch Complex 1",
+    latitud: -39.2608,
+    longitud: 177.8653,
+    lugar: "Māhia Peninsula, New Zealand",
+  },
   { id: "opcion-7", nombre: "SpaceX Starbase", latitud: 25.9972, longitud: -97.1561, lugar: "Boca Chica, Texas, USA" },
-  { id: "opcion-8", nombre: "Kodiak Island (Pacific Spaceport Complex)", latitud: 57.4795, longitud: -153.3745, lugar: "Alaska, USA" },
+  {
+    id: "opcion-8",
+    nombre: "Kodiak Island (Pacific Spaceport Complex)",
+    latitud: 57.4795,
+    longitud: -153.3745,
+    lugar: "Alaska, USA",
+  },
 ];
 
 // buscarCentro("opcion-1") → el objeto de Kennedy Space Center (o undefined)

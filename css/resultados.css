@@ -1,0 +1,324 @@
+/* resultados.css — Páginas con vista 3D a pantalla completa:
+   trayectoria.html, malla.html y aterrizaje.html.
+   (Los colores, .tarjeta, .boton, .aviso-lugar y .acciones vienen de inicio.css) */
+
+.pagina-3d {
+  display: block;
+  padding: 0;
+}
+
+/* El lienzo 3D ocupa toda la pantalla, encima de las estrellas */
+#vista-3d {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+#vista-3d canvas {
+  display: block;
+  cursor: grab;
+}
+
+/* Texto chico debajo del aviso de arriba a la izquierda */
+.aviso-lugar .nota {
+  margin-top: 8px;
+  padding: 0;
+  background: none;
+  color: var(--texto);
+  font-size: 0.72rem;
+  max-width: 560px;
+}
+
+/* --- Tarjetas flotantes --- */
+.panel {
+  position: fixed;
+  z-index: 3;
+  width: min(340px, calc(100% - 32px));
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 16px 18px;
+  background: var(--tarjeta);
+  font-size: 0.8rem;
+  text-align: left;
+}
+
+.panel-derecha {
+  top: 24px;
+  right: 24px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.panel h2 strong {
+  font-weight: 800;
+}
+
+/* Lista de datos: nombre a la izquierda, valor a la derecha */
+.lista-datos {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0;
+}
+
+.lista-datos dt {
+  opacity: 0.8;
+}
+
+.lista-datos dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Botones de abajo: aquí van a la izquierda para no tapar la vista */
+.acciones-3d {
+  justify-content: flex-start;
+  left: 24px;
+}
+
+.acciones-3d .boton {
+  width: auto;
+  min-width: 130px;
+  padding: 14px 22px;
+}
+
+.boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Botón que pide atención cuando la animación termina */
+.boton.listo {
+  box-shadow: 0 0 0 3px #fff;
+}
+
+/* --- trayectoria.html: letrero de abajo a la derecha --- */
+.letrero {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 3;
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--tarjeta);
+}
+
+.letrero span {
+  display: block;
+  padding: 6px 28px;
+  border-radius: 6px;
+  background: var(--boton);
+  color: var(--boton-texto);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+}
+
+/* --- malla.html --- */
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.72rem;
+}
+
+.leyenda i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.campo-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.campo-linea input[type="number"] {
+  width: 90px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  background: var(--boton);
+  color: var(--boton-texto);
+  font: inherit;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Barras de porcentaje (energía, comunicación, relieve) */
+.barra {
+  display: grid;
+  grid-template-columns: 110px 1fr 44px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.barra div {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.barra div i {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.barra b {
+  text-align: right;
+}
+
+#elegido p {
+  margin: 12px 0 0;
+}
+
+.panel .veredicto {
+  padding: 8px;
+  border-radius: 6px;
+  color: #06122b;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* --- aterrizaje.html --- */
+/* Selector "View" de arriba a la izquierda */
+.panel-vista {
+  top: 24px;
+  left: 24px;
+  width: 220px;
+  text-align: center;
+}
+
+.panel-vista label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+/* Panel "Landing Site Information": su color es el resultado (verde, amarillo, naranja o rojo) */
+.panel-sitio {
+  width: min(380px, calc(100% - 32px));
+  background: var(--resultado, var(--tarjeta));
+  color: var(--resultado-texto, #fff);
+  text-align: center;
+}
+
+.panel-sitio h3 {
+  margin: 10px 0 5px;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.panel-sitio h3 strong {
+  font-weight: 800;
+}
+
+.casillas {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 8px;
+}
+
+/* Cada casilla es un dato (como las píldoras del diseño) */
+.casilla {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 8px;
+}
+
+.panel-sitio details {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.panel-sitio summary {
+  cursor: pointer;
+  font-weight: 800;
+  text-align: center;
+}
+
+.panel-sitio details .lista-datos {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.panel-sitio details p {
+  margin: 8px 0 0;
+  font-size: 0.7rem;
+}
+
+/* Línea de tiempo (abajo al centro): mueve el reloj durante la estancia */
+.linea-tiempo {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 3;
+  width: min(460px, calc(100% - 32px));
+  padding: 10px 16px;
+  transform: translateX(-50%);
+  background: var(--tarjeta);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.linea-tiempo input {
+  width: 100%;
+  accent-color: var(--boton);
+}
+
+/* Pantallas angostas: los paneles se apilan y se puede bajar con el dedo */
+@media (max-width: 860px) {
+  .pagina-3d {
+    overflow-y: auto;
+  }
+
+  .pagina-3d .aviso-lugar,
+  .panel,
+  .linea-tiempo,
+  .letrero,
+  .pagina-3d .acciones-lugar {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-height: none;
+    margin: 12px 16px;
+    transform: none;
+  }
+
+  #vista-3d {
+    position: relative;
+    height: 60vh;
+  }
+}

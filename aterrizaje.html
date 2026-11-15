@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Landing site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="css/resultados.css" />
+  </head>
+  <body class="pagina-3d">
+    <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
+    <canvas id="estrellas" aria-hidden="true"></canvas>
+
+    <!-- Aquí se dibuja la escena 3D (js/pagina-aterrizaje.js) -->
+    <div id="vista-3d"></div>
+
+    <!-- Selector de vista (arriba a la izquierda) -->
+    <section class="tarjeta panel panel-vista">
+      <label for="vista">View</label>
+      <select id="vista" class="selector-mision">
+        <option value="sitio" selected>Landing site</option>
+        <option value="trayectoria">Trajectory animation</option>
+      </select>
+    </section>
+
+    <!-- Panel "Landing Site Information": lo llena y lo pinta js/pagina-aterrizaje.js -->
+    <section class="panel panel-derecha panel-sitio" id="panel-sitio" aria-live="polite">
+      <h2>Landing Site <strong>Information</strong></h2>
+      <p id="estado">Calculating…</p>
+
+      <div id="contenido" hidden>
+        <h3>Landing Site <strong>Location</strong></h3>
+        <div class="casillas">
+          <p class="casilla" id="latitud"></p>
+          <p class="casilla" id="longitud"></p>
+          <p class="casilla" id="altura"></p>
+        </div>
+
+        <div class="dos-columnas">
+          <h3>Use in <strong>previous missions</strong></h3>
+          <h3>Convenience <strong>percentage</strong></h3>
+          <p class="casilla" id="mision-previa"></p>
+          <p class="casilla" id="conveniencia"></p>
+        </div>
+
+        <h3><strong>Communications</strong> Information</h3>
+        <p class="casilla" id="comunicacion"></p>
+
+        <h3><strong>Earth</strong> Position</h3>
+        <div class="casillas">
+          <p class="casilla" id="tierra-elevacion"></p>
+          <p class="casilla" id="tierra-azimut"></p>
+        </div>
+
+        <h3><strong>Power</strong> Information</h3>
+        <p class="casilla" id="energia"></p>
+
+        <h3><strong>Sun</strong> Position</h3>
+        <div class="casillas">
+          <p class="casilla" id="sol-elevacion"></p>
+          <p class="casilla" id="sol-azimut"></p>
+        </div>
+
+        <!-- La flechita del diseño: abre el detalle de los cálculos -->
+        <details>
+          <summary>More details</summary>
+          <dl class="lista-datos" id="detalle"></dl>
+          <label class="campo-linea">
+            Hours on the surface
+            <input id="estancia" type="number" min="1" max="2000" step="1" />
+          </label>
+          <p id="curiosidad"></p>
+          <p>
+            Sun/Earth positions: Astronomy Engine (checked against NASA JPL Horizons). Terrain: NASA LOLA elevation map,
+            4 px/deg (~7.6 km).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Línea de tiempo: mueve el reloj durante la estancia -->
+    <section class="linea-tiempo">
+      <label for="reloj" id="reloj-texto">Time on the surface</label>
+      <input id="reloj" type="range" min="0" max="240" step="0.5" value="0" />
+    </section>
+
+    <div class="acciones acciones-lugar acciones-3d">
+      <a class="boton boton-return" href="index.html">Return</a>
+      <button type="button" class="boton" disabled title="Coming soon">COMPARE</button>
+    </div>
+
+    <script src="js/inicio.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/pagina-aterrizaje.js"></script>
+  </body>
+</html>

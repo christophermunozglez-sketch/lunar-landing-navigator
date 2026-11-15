@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Landing grid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="css/resultados.css" />
+  </head>
+  <body class="pagina-3d">
+    <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
+    <canvas id="estrellas" aria-hidden="true"></canvas>
+
+    <!-- Aquí se dibuja la escena 3D (js/pagina-malla.js) -->
+    <div id="vista-3d"></div>
+
+    <!-- Aviso de arriba a la izquierda -->
+    <header class="aviso-lugar">
+      <p>Now select a <strong>landing spot on the moon model</strong>!</p>
+      <p class="nota">
+        Please be aware that better landing spots will be coloured in green and worst in red. Every other will be in
+        between that range. Drag to rotate the Moon, then click a spot.
+      </p>
+    </header>
+
+    <!-- Panel de la derecha: datos de llegada y el lugar elegido (js/pagina-malla.js) -->
+    <section class="tarjeta panel panel-derecha" aria-label="Landing spot">
+      <h2>Landing <strong>spot</strong></h2>
+      <dl class="lista-datos" id="datos-llegada"></dl>
+      <label class="campo-linea">
+        Hours on the surface
+        <input id="estancia" type="number" min="1" max="2000" step="1" />
+      </label>
+      <ul class="leyenda" id="leyenda"></ul>
+      <div id="elegido" aria-live="polite">
+        <p id="estado">Calculating the grid…</p>
+      </div>
+    </section>
+
+    <div class="acciones acciones-lugar acciones-3d">
+      <a class="boton boton-return" href="mision.html">Return</a>
+      <button type="button" class="boton boton-enter" id="continuar" disabled>Enter</button>
+    </div>
+
+    <script src="js/inicio.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/pagina-malla.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Trajectory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="css/resultados.css" />
+  </head>
+  <body class="pagina-3d">
+    <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
+    <canvas id="estrellas" aria-hidden="true"></canvas>
+
+    <!-- Aquí se dibuja la escena 3D (js/pagina-trayectoria.js) -->
+    <div id="vista-3d"></div>
+
+    <!-- Aviso de arriba a la izquierda: en qué parte del viaje vamos -->
+    <header class="aviso-lugar">
+      <p id="fase" aria-live="polite">Calculating the trajectory…</p>
+      <p class="nota">
+        Real Sun, Earth and Moon positions for your launch date. Earth and Moon are drawn 4× bigger so you can see them;
+        distances are to scale. Drag to rotate, scroll to zoom.
+      </p>
+    </header>
+
+    <!-- Datos del viaje (los llena js/pagina-trayectoria.js) -->
+    <section class="tarjeta panel panel-derecha" aria-label="Flight data">
+      <h2>Flight <strong>data</strong></h2>
+      <dl class="lista-datos" id="datos-viaje"></dl>
+    </section>
+
+    <p class="letrero">
+      <span>Enjoy the <strong>animation</strong> we prepared for you!</span>
+    </p>
+
+    <div class="acciones acciones-lugar acciones-3d">
+      <button type="button" class="boton boton-return" id="regresar">Return</button>
+      <button type="button" class="boton boton-return" id="repetir">Replay</button>
+      <button type="button" class="boton" id="continuar">Continue</button>
+    </div>
+
+    <script src="js/inicio.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/pagina-trayectoria.js"></script>
+  </body>
+</html>

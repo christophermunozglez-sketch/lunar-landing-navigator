@@ -11,11 +11,12 @@
 //
 // - coordenadas.html: el destino sale de la latitud/longitud que escribes.
 // - lugar.html:       el destino sale del pin (misión pasada) que eliges.
-// - mision.html:      todavía no tiene destino (destino: null), lo definimos después.
+// - mision.html:      no tiene destino (destino: null); se elige después en la malla.
 //
-// Por ahora Enter solo junta los datos y llama a continuar(datos) (TODO).
+// Enter junta los datos y llama a continuar(datos), que pasa a la siguiente página.
 
 import { leerNumero, validarCoordenadas } from "./coordenadas.js";
+import { irA } from "./datos.js";
 
 const formulario = document.querySelector("form.datos-entrada");
 
@@ -81,7 +82,8 @@ if (formulario) {
 }
 
 // ── Qué pasa después ───────────────────────────────────────────────────────
+// Con destino → animación del viaje (y de ahí a la información del aterrizaje).
+// Sin destino (mision.html) → la malla de colores para elegir dónde aterrizar.
 function continuar(datos) {
-  console.log("Enter con estos datos:", datos);
-  // TODO: aquí van los cálculos (los definimos después).
+  irA(datos.destino ? "trayectoria.html" : "malla.html", datos);
 }
