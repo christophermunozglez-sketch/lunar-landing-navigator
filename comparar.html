@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLSN Insights · Compare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="css/resultados.css" />
+  </head>
+  <body class="pagina-comparar">
+    <!-- Barra de arriba: qué se ve en todos los paneles y los botones generales -->
+    <header class="barra-comparar">
+      <p id="titulo-comparar"></p>
+      <!-- Cambian TODOS los paneles a la vez (cada panel también tiene su propio "View") -->
+      <div class="grupo-botones">
+        <button type="button" class="boton" data-vista="trayectoria">Trajectories</button>
+        <button type="button" class="boton" data-vista="aterrizaje">Landing sites</button>
+      </div>
+      <div class="grupo-botones">
+        <a class="boton boton-return" href="index.html">Start over</a>
+        <!-- COMPARE: corre el programa otra vez para agregar una entrada más -->
+        <button type="button" class="boton" id="comparar">COMPARE</button>
+      </div>
+    </header>
+
+    <!-- Aquí va un panel por cada entrada (los arma js/pagina-comparar.js) -->
+    <main id="paneles"></main>
+
+    <script type="module" src="js/pagina-comparar.js"></script>
+  </body>
+</html>

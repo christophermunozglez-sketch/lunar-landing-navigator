@@ -5,6 +5,7 @@
 // Así cualquiera puede copiar el enlace y ver exactamente el mismo escenario.
 //
 //   irA("trayectoria.html", datos)  → cambia de página llevando los datos
+//                                     (si se está comparando, ver js/entradas.js)
 //   leerDatos()                     → los recupera en la página nueva
 //
 // "datos" tiene la forma que arma js/enter.js:
@@ -12,10 +13,12 @@
 
 import { buscarCentro } from "./tierra.js";
 import { validarCoordenadas } from "./coordenadas.js";
+import { entradasPrevias, direccionCon } from "./entradas.js";
 
 export const ESTANCIA_HORAS = 240; // horas en la Luna si nadie dice otra cosa (10 días)
 
-export function irA(pagina, datos) {
+// La entrada como texto: "origen=...&fecha=...&hora=...&lat=...&lon=...&nombre=..."
+export function textoDeEntrada(datos) {
   const parametros = new URLSearchParams({ origen: datos.origen.id, fecha: datos.fecha, hora: datos.hora });
   if (datos.estancia) parametros.set("estancia", datos.estancia);
   if (datos.destino) {
@@ -23,7 +26,20 @@ export function irA(pagina, datos) {
     parametros.set("lon", datos.destino.longitud.toFixed(4));
     parametros.set("nombre", datos.destino.nombre);
   }
-  window.location.href = `${pagina}?${parametros}`;
+  return parametros.toString();
+}
+
+export function irA(pagina, datos) {
+  const previas = entradasPrevias();
+  // Comparando y la entrada nueva ya tiene destino: pantalla dividida con todas
+  if (previas.length && datos.destino) return compararCon(previas, datos);
+  // Si no, a la página pedida (conservando las entradas anteriores, si hay)
+  window.location.href = direccionCon(pagina, previas, textoDeEntrada(datos));
+}
+
+// Abre la comparación con las entradas anteriores más esta
+export function compararCon(previas, datos) {
+  window.location.href = direccionCon("comparar.html", [...previas, textoDeEntrada(datos)]);
 }
 
 // Devuelve los datos listos para calcular. Si falta algo (por ejemplo, alguien
