@@ -172,9 +172,15 @@ const filas = [
   ["Landing", formatearFecha(viaje.llegada)],
   ["Landing site", `${datos.destino.nombre} · ${formatearCoordenadas(datos.destino.latitud, datos.destino.longitud)}`],
 ];
-document.getElementById("datos-viaje").innerHTML = filas
-  .map(([nombre, valor]) => `<dt>${nombre}</dt><dd>${valor}</dd>`)
-  .join("");
+// textContent (no innerHTML): el nombre del lugar viene de la dirección y no debe leerse como HTML
+const listaDatos = document.getElementById("datos-viaje");
+for (const [nombre, valor] of filas) {
+  const titulo = document.createElement("dt");
+  const dato = document.createElement("dd");
+  titulo.textContent = nombre;
+  dato.textContent = valor;
+  listaDatos.append(titulo, dato);
+}
 if (!viaje.convergio) console.warn("La puntería no llegó a 100 km de la Luna; se muestra la mejor aproximación.");
 
 // --- 3. Animación ---

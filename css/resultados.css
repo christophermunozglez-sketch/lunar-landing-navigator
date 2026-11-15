@@ -254,6 +254,12 @@
 }
 
 @media (max-width: 860px) {
+  /* Igual que la vista 3D: arriba, y los paneles debajo (no encima) */
+  #vista-2d {
+    position: relative;
+    height: 60vh;
+  }
+
   .info-2d {
     position: relative;
     inset: auto;
