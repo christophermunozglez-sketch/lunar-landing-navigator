@@ -25,6 +25,13 @@
     <!-- Aquí js/lugar.js pone un pin por cada misión pasada -->
     <div id="marcadores" aria-label="Previous landing missions"></div>
 
+    <!-- Return: regresa a la página principal.
+         Enter: se activa cuando eliges una misión (lógica en js/enter.js) -->
+    <div class="acciones acciones-lugar">
+      <a class="boton boton-return" href="index.html">Return</a>
+      <button type="button" class="boton boton-enter" id="enter-lugar" disabled>Enter</button>
+    </div>
+
     <script src="js/inicio.js"></script>
 
     <!-- Luna 3D: estas dos partes se copian igual en cualquier página que quiera la Luna -->
@@ -38,5 +45,6 @@
     </script>
     <script type="module" src="js/luna3d.js"></script>
     <script type="module" src="js/lugar.js"></script>
+    <script type="module" src="js/enter.js"></script>
   </body>
 </html>

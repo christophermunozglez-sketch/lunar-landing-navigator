@@ -19,7 +19,7 @@
     <main class="tarjeta tarjeta-mision">
       <h1>Welcome to <strong>LLSN Insights</strong>!</h1>
       <p class="subtitulo">Please answer the following for getting started!</p>
-      <form class="datos-entrada">
+      <form class="datos-entrada" id="formulario-mision">
         <label for="centro-lanzamiento">Select the <strong>launching center</strong></label>
         <select id="centro-lanzamiento" class="selector-mision" name="centro-lanzamiento" required>
           <option value="" selected disabled>Choose a launching center</option>
@@ -42,6 +42,12 @@
             <input id="hora-mision" name="hora-mision" type="time" required />
           </div>
         </div>
+
+        <!-- Return: regresa a la página principal. Enter: sigue al siguiente paso (js/enter.js) -->
+        <div class="acciones">
+          <a class="boton boton-return" href="index.html">Return</a>
+          <button type="submit" class="boton boton-enter">Enter</button>
+        </div>
       </form>
     </main>
 
@@ -57,5 +63,6 @@
       }
     </script>
     <script type="module" src="js/luna3d.js"></script>
+    <script type="module" src="js/enter.js"></script>
   </body>
 </html>
