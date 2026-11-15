@@ -9,25 +9,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/inicio.css" />
   </head>
-  <body>
+  <body class="pagina-mision">
     <!-- Fondo de estrellas (se dibuja con js/inicio.js) -->
     <canvas id="estrellas" aria-hidden="true"></canvas>
 
     <!-- Modelo 3D de la Luna (lo pone aquí js/luna3d.js) -->
     <div id="luna-3d" aria-hidden="true"></div>
 
-    <main class="tarjeta">
+    <main class="tarjeta tarjeta-mision">
       <h1>Welcome to <strong>LLSN Insights</strong>!</h1>
       <p class="subtitulo">Please answer the following for getting started!</p>
-      <form class="datos-entrada">
-        <label class="campo-entrada">
-          <span>Latitude</span>
-          <input type="text" name="latitud" placeholder="e.x. 25.6" />
-        </label>
-        <label class="campo-entrada">
-          <span>Longitude</span>
-          <input type="text" name="longitud" placeholder="e.x. 45.3" />
-        </label>
+      <form class="datos-entrada" id="formulario-coordenadas">
+        <label for="centro-lanzamiento">Select the <strong>launching center</strong></label>
+        <select id="centro-lanzamiento" class="selector-mision" name="centro-lanzamiento" required>
+          <option value="" selected disabled>Choose a launching center</option>
+          <option value="opcion-1">Kennedy Space Center</option>
+          <option value="opcion-2">Cape Canaveral Space Force Station</option>
+          <option value="opcion-3">Vandenberg Space Force Base</option>
+          <option value="opcion-4">Wallops Flight Facility</option>
+          <option value="opcion-5">Reagan Test Site Kwajalein Atoll</option>
+          <option value="opcion-6">Rocket Labs Launch Complex</option>
+          <option value="opcion-7">SpaceXs Starbase</option>
+        </select>
+
+        <div class="campos-fecha-hora">
+          <div class="campo-mision">
+            <label for="fecha-mision">Enter the <strong>date</strong></label>
+            <input id="fecha-mision" name="fecha-mision" type="date" required />
+          </div>
+          <div class="campo-mision">
+            <label for="hora-mision">Enter the <strong>hour</strong></label>
+            <input id="hora-mision" name="hora-mision" type="time" required />
+          </div>
+        </div>
+
+        <!-- Latitud y longitud: sur y oeste en negativo (ej. -89.5), o con letra (ej. 89.5 S) -->
+        <div class="campos-fecha-hora">
+          <div class="campo-mision">
+            <label for="latitud">Enter <strong>latitude</strong></label>
+            <input id="latitud" name="latitud" type="text" inputmode="decimal" placeholder="e.x. -89.5" required />
+          </div>
+          <div class="campo-mision">
+            <label for="longitud">Enter the <strong>longitude</strong></label>
+            <input id="longitud" name="longitud" type="text" inputmode="decimal" placeholder="e.x. 45.3" required />
+          </div>
+        </div>
+
+        <!-- Return: regresa a la página principal. Enter: sigue al siguiente paso (js/enter.js) -->
+        <div class="acciones">
+          <a class="boton boton-return" href="index.html">Return</a>
+          <button type="submit" class="boton boton-enter">Enter</button>
+        </div>
       </form>
     </main>
 
@@ -43,5 +75,6 @@
       }
     </script>
     <script type="module" src="js/luna3d.js"></script>
+    <script type="module" src="js/enter.js"></script>
   </body>
 </html>

@@ -274,3 +274,156 @@ body {
     margin: 0 auto;
   }
 }
+
+/* --- Página "Select place (previous)" (lugar.html) --- */
+
+/* Aviso de arriba a la izquierda */
+.aviso-lugar {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 3;
+  max-width: calc(100% - 32px);
+  padding: 12px 16px;
+  background: var(--tarjeta);
+}
+
+.aviso-lugar p {
+  margin: 0;
+  padding: 6px 28px;
+  border-radius: 6px;
+  background: var(--boton);
+  color: var(--boton-texto);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+}
+
+/* Capa donde viven los pines (encima de la Luna) */
+#marcadores {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none; /* deja pasar el mouse, menos en los pines */
+}
+
+/* Un pin: la punta de abajo es la que marca la coordenada */
+.pin {
+  position: fixed;
+  width: 28px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  background: none;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s;
+}
+
+.pin[hidden] {
+  display: none;
+}
+
+.pin svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+.pin:hover,
+.pin:focus-visible,
+.pin[aria-pressed="true"] {
+  transform: translate(-50%, -100%) scale(1.25);
+}
+
+.pin:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* El pin elegido se pone amarillo */
+.pin[aria-pressed="true"] path {
+  fill: #ffcc00;
+}
+
+/* Nombre de la misión: aparece al pasar el mouse o al elegirla */
+.pin-etiqueta {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--tarjeta);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.pin:hover .pin-etiqueta,
+.pin:focus-visible .pin-etiqueta,
+.pin[aria-pressed="true"] .pin-etiqueta {
+  opacity: 1;
+}
+
+/* --- Botones "Return" y "Enter" (coordenadas, misión y lugar) --- */
+.acciones {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.acciones .boton {
+  width: min(100%, 200px);
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Return: mismo botón pero con borde, para que se distinga de Enter */
+.boton-return {
+  background: transparent;
+  color: var(--texto);
+  box-shadow: inset 0 0 0 2px var(--boton);
+}
+
+.boton-return:hover {
+  background: rgba(84, 104, 255, 0.25);
+}
+
+.boton-enter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* En lugar.html van abajo, al centro, encima de la Luna */
+.acciones-lugar {
+  position: fixed;
+  bottom: 24px;
+  left: 16px;
+  right: 16px;
+  z-index: 3;
+  margin: 0;
+  pointer-events: none; /* la franja deja pasar los clics, menos en los botones */
+}
+
+.acciones-lugar .boton {
+  pointer-events: auto;
+}
+
+.acciones-lugar .boton-return {
+  background: var(--tarjeta);
+}
+
+/* Texto de ejemplo (placeholder) de los campos azules, que se lea mejor */
+.campo-mision input::placeholder {
+  color: rgba(26, 15, 143, 0.55);
+}
