@@ -17,11 +17,16 @@
     <!-- Aquí se dibuja la escena 3D (js/pagina-aterrizaje.js) -->
     <div id="vista-3d"></div>
 
+    <!-- Vista 2D (js/vista-2d.js): Sol, Tierra y Luna desde arriba, con sus posiciones reales -->
+    <canvas id="vista-2d" hidden></canvas>
+    <p class="info-2d" id="info-2d" hidden aria-live="polite"></p>
+
     <!-- Selector de vista (arriba a la izquierda) -->
     <section class="tarjeta panel panel-vista">
       <label for="vista">View</label>
       <select id="vista" class="selector-mision">
-        <option value="sitio" selected>Landing site</option>
+        <option value="3d" selected>3D view</option>
+        <option value="2d">2D view</option>
         <option value="trayectoria">Trajectory animation</option>
       </select>
     </section>
@@ -88,8 +93,9 @@
     </section>
 
     <div class="acciones acciones-lugar acciones-3d">
-      <a class="boton boton-return" href="index.html">Return</a>
-      <button type="button" class="boton" disabled title="Coming soon">COMPARE</button>
+      <a class="boton boton-return solo-completa" href="index.html">Return</a>
+      <!-- COMPARE: vuelve al inicio para capturar otra entrada y compararla con esta (js/entradas.js) -->
+      <button type="button" class="boton solo-completa" id="comparar">COMPARE</button>
     </div>
 
     <script src="js/inicio.js"></script>

@@ -7,9 +7,13 @@
 // 4. Dibujamos la vista: la nave sobre la Luna, con la Tierra y el Sol en la
 //    dirección real en la que se ven desde ahí.
 // 5. La línea de tiempo mueve el reloj: el Sol y la Tierra cambian de lugar.
+// 6. "View" cambia entre la vista 3D y la 2D (js/vista-2d.js); las dos
+//    muestran el mismo momento y el mismo panel.
+// 7. COMPARE vuelve al inicio para capturar otra entrada (js/entradas.js).
 
 import * as THREE from "three";
-import { leerDatos, irA, formatearDuracion, formatearFecha } from "./datos.js";
+import { leerDatos, irA, textoDeEntrada, formatearDuracion, formatearFecha } from "./datos.js";
+import { direccionCon } from "./entradas.js";
 import { calcularTrayectoria } from "./trayectoria.js";
 import { cargarTopografia, hayTopografia } from "./topografia.js";
 import {
@@ -26,6 +30,7 @@ import {
 import { formatearCoordenadas } from "./coordenadas.js";
 import { suma, escala, RAD } from "./vectores.js";
 import { crearEscena, cargarModelo, agregarSol, aTres, orientarTierra, crearNave } from "./escena.js";
+import { crearVista2D } from "./vista-2d.js";
 
 // Tamaños y distancias de la vista (la Luna mide 1 de radio).
 // La Tierra, el Sol y la nave están agrandados para que se vean; lo que es
@@ -64,6 +69,15 @@ nave.scale.setScalar(TAMANO_NAVE);
 nave.position.copy(lugar);
 nave.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), lugar); // parada sobre el suelo
 escena.add(nave, new THREE.PointLight(0xffffff, 0.4).translateOnAxis(lugar, 1.3)); // lucecita para que la nave se vea de noche
+
+// Vista 2D: se prepara aparte (carga sus imágenes) y se dibuja con cada momento
+let vista2D = null;
+let ultimoMomento = null; // lo último que se mostró (para dibujarlo en 2D cuando esté lista)
+const vista2DLista = crearVista2D(elemento("vista-2d"), {
+  origen: datos.origen,
+  sitio,
+  info: elemento("info-2d"),
+}).then((creada) => (vista2D = creada));
 
 // Rumbo (unitario, sistema de la Luna) hacia un astro con cierta elevación y azimut
 function rumbo({ elevacion, azimut }) {
@@ -107,6 +121,9 @@ function mostrarMomento(horas) {
   tierra.visible = vista.tierra.visible;
   sol.modelo.visible = vista.sol.despeje > -vista.sol.radio;
 
+  ultimoMomento = { fecha, vista };
+  vista2D?.dibujar(fecha, vista);
+
   escribir("reloj-texto", `Time on the surface: +${formatearDuracion(horas)} · ${formatearFecha(fecha)}`);
   escribir("tierra-elevacion", `Elevation ${grados(vista.tierra.elevacion)}`);
   escribir("tierra-azimut", `Azimuth ${grados(vista.tierra.azimut)}`);
@@ -130,6 +147,8 @@ const panel = elemento("panel-sitio");
 const filaPuntos = (nombre, porcentaje, extra = "") =>
   `<dt>${nombre}</dt><dd>${porcentaje.toFixed(1)} %${extra} → ${puntosDe(porcentaje)} pts</dd>`;
 
+let colorResultado = COLORES.verde.hex;
+
 function evaluar() {
   const horas = Math.min(2000, Math.max(1, Number(elemento("estancia").value) || datos.estancia));
   datos.estancia = horas;
@@ -138,6 +157,8 @@ function evaluar() {
   const previa = misionMasCercana(sitio);
 
   panel.style.setProperty("--resultado", color.hex);
+  colorResultado = color.hex;
+  vista2D?.ponerColor(color.hex);
   panel.style.setProperty("--resultado-texto", resultado.color === "amarillo" ? "#06122b" : "#fff");
 
   const [latitud, longitud] = formatearCoordenadas(sitio.latitud, sitio.longitud).split(", ");
@@ -183,6 +204,29 @@ acomodarCamara(evaluar());
 
 elemento("estancia").addEventListener("change", evaluar);
 reloj.addEventListener("input", () => mostrarMomento(Number(reloj.value)));
+// --- 6. Cambiar entre 3D y 2D ---
+function mostrarVista(tipo) {
+  const es2D = tipo === "2d";
+  elemento("vista-3d").hidden = es2D;
+  elemento("vista-2d").hidden = !es2D;
+  elemento("info-2d").hidden = !es2D;
+  if (es2D) vista2D?.redibujar();
+}
+
 elemento("vista").addEventListener("change", (evento) => {
-  if (evento.target.value === "trayectoria") irA("trayectoria.html", datos);
+  const valor = evento.target.value;
+  if (valor === "trayectoria") return irA("trayectoria.html", datos);
+  mostrarVista(valor);
+});
+
+// Cuando terminan de cargar las imágenes de la 2D, dibujamos el momento actual
+vista2DLista.then(() => {
+  vista2D.ponerColor(colorResultado);
+  if (ultimoMomento) vista2D.dibujar(ultimoMomento.fecha, ultimoMomento.vista);
+  mostrarVista(elemento("vista").value);
+});
+
+// --- 7. COMPARE: el programa se corre otra vez, recordando esta entrada ---
+elemento("comparar").addEventListener("click", () => {
+  window.location.href = direccionCon("index.html", [textoDeEntrada(datos)]);
 });

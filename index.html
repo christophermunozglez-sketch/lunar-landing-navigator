@@ -17,8 +17,11 @@
     <div id="luna-3d" aria-hidden="true"></div>
 
     <main class="tarjeta">
-      <h1>Welcome to <strong>LLSN Insights</strong>!</h1>
-      <p class="subtitulo">Please answer the following for getting started!</p>
+      <!-- data-al-comparar: el texto que se muestra cuando se captura otra entrada para comparar (js/entradas.js) -->
+      <h1 data-al-comparar="Please enter new <strong>location</strong>">Welcome to <strong>LLSN Insights</strong>!</h1>
+      <p class="subtitulo" data-al-comparar="Please answer the following for the new landing location!">
+        Please answer the following for getting started!
+      </p>
       <p>Select which method you would like to use for <strong>navigating in the page!</strong></p>
 
       <!-- Cada botón es un enlace (<a>) que lleva a otra página -->
@@ -41,5 +44,6 @@
       }
     </script>
     <script type="module" src="js/luna3d.js"></script>
+    <script type="module" src="js/entradas.js"></script>
   </body>
 </html>
